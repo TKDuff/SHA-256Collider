@@ -4,39 +4,17 @@ public class LinkedListQueue {
 	public static void main(String[] args) {
 		
 		Scanner in = new Scanner(System.in);
-		int num = Integer.parseInt(in.nextLine());
-		Link[] array = new Link[num];
-		
-		for(int i = 0; i < num; i++) {
-			array[i] = new Link(in.nextLine());
-		}
 
-		
-		for(int i = 0; i < num; i++) {
-			int select = i;
-			int previous = i-1;
-			int next = i+1;
-			if(previous != -1) {
-				array[select].previous = array[previous];
-			}
-			if(next != num) {
-				array[select].next=array[next];
-			}
-		}
-		
-		LinkedList myList = new LinkedList();
-		
-		if(num>0) {
-			myList.first=array[0];
-			myList.last=array[num-1];
-		}
-		
-		myList.insertTail("Test");
-		
+		QueueLinkedList myList = new QueueLinkedList();
+				
+		myList.insert("One");	
+		myList.insert("Two");
+		myList.insert("Three");
+		myList.remove();
 		Link current = myList.first;
 		
-		for(int i = 0; i < num+1; i++) {
-			System.out.println(current.data +" ");
+		for(int i = 0; i < 2; i++) {
+			System.out.println(current.data + " ");
 			current = current.next;
 		}
 		
@@ -47,41 +25,35 @@ public class LinkedListQueue {
 class Link{
 	public String data;
 	public Link next;
-	public Link previous;
 	
 	public Link(String input) {
 		data = input;
 		next = null;
-		previous =null;
 	}
-	
-	
 }
 
-class LinkedList{
+class QueueLinkedList{
 	public Link first;
 	public Link last;
 	
-	public LinkedList() {
+	public QueueLinkedList() {
 		first = null;
 	}
 	
-	public boolean isEmpty() {
-		return (first==null);
-	}
-	
-	
-	public void removeHead() {
+	public void remove() {
 		first = first.next;
 	}
 	
-	public void insertTail(String data) {
+	public void insert(String data) {
 		Link newLink = new Link(data); 		//create new link
+		if(first == null) {
+			first = newLink;
+			last = newLink;
+		} else {
 		last.next = newLink;				//old last link point to new link
 		last = newLink;						//update last link object to point to new node
 		
-		
-	}
-	
+		}
+	}	
 }
 
