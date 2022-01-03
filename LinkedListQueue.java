@@ -1,25 +1,51 @@
+import java.security.MessageDigest;
 import java.util.*;
 public class LinkedListQueue {
 
 	public static void main(String[] args) {
-		
+		Dictionary dict = new Dictionary();
 		Scanner in = new Scanner(System.in);
 
-		QueueLinkedList myList = new QueueLinkedList();
-				
-		myList.insert("One");	
+		QueueLinkedList myList = new QueueLinkedList();		
+		
+		myList.insert("One");
 		myList.insert("Two");
 		myList.insert("Three");
-		myList.remove();
+		myList.insert("Four");
+		myList.insert("Five");
+		
+		
+		int highest = 0;
+		
 		Link current = myList.first;
-		
-		for(int i = 0; i < 2; i++) {
-			System.out.println(current.data + " ");
+		while(current != null) {
+			Link compared = myList.first.next;		//ensure not comparing same sha
+			while(compared != null) {
+				System.out.println(current.data + " compared to " + compared.data);
+				compared = compared.next;
+			}
 			current = current.next;
+			myList.remove();
 		}
-		
 	}
-		
+	
+	
+	public static String sha256(String input){
+        try{
+            MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
+            byte[] salt = "CS210+".getBytes("UTF-8");
+            mDigest.update(salt);
+            byte[] data = mDigest.digest(input.getBytes("UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            for (int i=0;i<data.length;i++){
+                sb.append(Integer.toString((data[i]&0xff)+0x100,16).substring(1));
+            }
+            return sb.toString();
+        }catch(Exception e){
+            return(e.toString());
+        }
+    }
+	
 }
 
 class Link{
