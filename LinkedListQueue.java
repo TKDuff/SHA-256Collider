@@ -77,8 +77,8 @@ class LinkedList{
 	
 	public void insertTail(String data) {
 		Link newLink = new Link(data); 		//create new link
-		last.next = newLink;				//old last link point to new link
-		last = newLink;						//update last link object to point to new node
+		last.next = newLink;			//old last link point to new link
+		last = newLink;				//update last link object to point to new node
 		
 		
 	}
